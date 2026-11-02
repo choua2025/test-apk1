@@ -12,15 +12,15 @@ app.use(cors());
 app.get("/", (req, res) => {
   res.send("Hello, World!");
 });
-pool.connect((err, client, release) => {
-  if (err) {
-    console.error("Error acquiring client", err.stack);
-    return;
-  }
-  if (client) {
+pool
+  .getConnection()
+  .then((connection) => {
     console.log("Database connected successfully");
-  }
-});
+    connection.release();
+  })
+  .catch((err) => {
+    console.error("Error acquiring connection", err.stack);
+  });
 app.use("/api", router);
 app.listen(5000, () => {
   console.log("Server started on port http://localhost:5000");

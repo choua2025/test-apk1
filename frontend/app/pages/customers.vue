@@ -16,7 +16,7 @@ const search = ref("");
 const headers = [
   { title: "ID", key: "customer_id", width: 100 },
   { title: "Name", key: "customer_name" },
-  { title: "", key: "actions", sortable: false, align: "end" as const },
+  { title: "Actions", key: "actions", sortable: false, align: "end" as const },
 ];
 
 // add / edit dialog

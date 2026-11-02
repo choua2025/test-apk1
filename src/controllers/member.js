@@ -5,6 +5,17 @@ import db from "../configs/db.js";
 
 const router = express.Router();
 
+// CHECK IF ANY MEMBER EXISTS (frontend uses this to pick register vs login)
+router.get("/exists", async (req, res) => {
+    try {
+        const [rows] = await db.execute("SELECT 1 FROM member LIMIT 1");
+        res.json({ exists: rows.length > 0 });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+});
+
 // REGISTER
 router.post("/register", async (req, res) => {
     try {
